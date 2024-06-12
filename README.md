@@ -1,2 +1,2 @@
-# C-Essentails
+# C Essentails
 Essentials Code for C
