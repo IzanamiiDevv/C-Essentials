@@ -6,7 +6,7 @@
 #include <string.h>
 #include <ctype.h>
 
-//User Input
+/*=========================|USER INPUTS|================================*/
 
 // Function to get a valid integer input
 int get_int(const char* text) {
@@ -151,5 +151,8 @@ char get_char(const char* text) {
     }
     return ch;
 }
+/*========================|DYNAMIC ARRAY|===============================*/
+
+/*======================|STRING CONVERTER|==============================*/
 
 #endif //ESSENTIAL
