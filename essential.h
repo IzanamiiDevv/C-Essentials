@@ -151,8 +151,46 @@ char get_char(const char* text) {
     }
     return ch;
 }
-/*========================|DYNAMIC ARRAY|===============================*/
 
 /*======================|STRING CONVERTER|==============================*/
 
+// Convert char* to const char*
+const char* char_to_const_char(const char *str) {
+    return (const char*) str;
+}
+
+// Convert char* to char[]
+void char_to_char_array(const char *src, char *dest, size_t len) {
+    strncpy(dest, src, len - 1);
+    dest[len - 1] = '\0';
+}
+
+// Convert const char* to char*
+char* const_char_to_char(const char *str) {
+    // Allocate memory for the new string and copy the content
+    char *result = (char *)malloc(strlen(str) + 1);
+    strcpy(result, str);
+    return result;
+}
+
+// Convert const char* to char[]
+void const_char_to_char_array(const char *src, char *dest, size_t len) {
+    strncpy(dest, src, len - 1);
+    dest[len - 1] = '\0';
+}
+
+// Convert char[] to const char*
+const char* char_array_to_const_char(const char *array) {
+    return (const char*) array;
+}
+
+// Convert char[] to char*
+char* char_array_to_char(const char *array) {
+    // Allocate memory for the new string and copy the content
+    char *result = (char *)malloc(strlen(array) + 1);
+    strcpy(result, array);
+    return result;
+}
+
+/*========================|DYNAMIC ARRAY|===============================*/
 #endif //ESSENTIAL
