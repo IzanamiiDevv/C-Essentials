@@ -43,6 +43,7 @@ void Array_Free(Array* arr) {
 
 #define Array_Take(type, arr, index) ((( type* )(arr).list)[(index)])
 
+
 #define Array_ForEach(type, arr, callback) { \
     void(*arrforeach)(type) = callback; \
     for(int i = 0; i < (arr).len; i++) { \
@@ -57,22 +58,12 @@ void Array_Free(Array* arr) {
     } \
 }
 
-void fn(char* item) {
-    printf("%s \n", item);
-}
-
-char* fn2(char* item) {
-    return "Test";
-}
-
 int main() {
     Array myarr = Array_Init();
-    Array_PushBack(myarr, char* , "Hello");
-    Array_PushBack(myarr, char* , "World");
+    Array_PushBack(myarr, char* , "Kamusta");
+    Array_PushBack(myarr, char* , "Hello World");
 
-    Array_ForEach(char*, myarr, fn);
-    Array_Map(char*, myarr, fn2);
-    Array_Print("%s", char*, myarr);
+    printf("%s \n", Array_Take(char*, myarr, 0));
 
     Array_Free(&myarr);
     return 0;
