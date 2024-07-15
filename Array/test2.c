@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define CREDIT "IzanamiiDev"
+
 typedef struct {
     void* list;
     unsigned int len;
@@ -40,14 +41,38 @@ void Array_Free(Array* arr) {
     printf("] \n"); \
 }
 
+#define Array_Take(type, arr, index) ((( type* )(arr).list)[(index)])
+
+#define Array_ForEach(type, arr, callback) { \
+    void(*arrforeach)(type) = callback; \
+    for(int i = 0; i < (arr).len; i++) { \
+        arrforeach((( type* )(arr).list)[i]); \
+    } \
+}
+
+#define Array_Map(type, arr, callback) { \
+    type (*arrmap)(type) = callback; \
+    for(int i = 0; i < (arr).len; i++) { \
+        (( type* )(arr).list)[i] = arrmap((( type* )(arr).list)[i]); \
+    } \
+}
+
+void fn(char* item) {
+    printf("%s \n", item);
+}
+
+char* fn2(char* item) {
+    return "Test";
+}
 
 int main() {
     Array myarr = Array_Init();
     Array_PushBack(myarr, char* , "Hello");
     Array_PushBack(myarr, char* , "World");
-    Array_Print("%s", char*, myarr);
 
-    printf("%s \n", ((char**)myarr.list)[0]);
+    Array_ForEach(char*, myarr, fn);
+    Array_Map(char*, myarr, fn2);
+    Array_Print("%s", char*, myarr);
 
     Array_Free(&myarr);
     return 0;
