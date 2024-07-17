@@ -96,5 +96,3 @@ int main() {
     array_flush(&nn);
     return 0;
 }
-
-//(rand() % (MAX - MIN + 1)) + MIN
