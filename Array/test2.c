@@ -10,7 +10,7 @@ typedef struct {
     unsigned int len;
 } Array;
 
-Array Array_Init() {
+Array array_init() {
     Array buff;
     buff.len = 0;
     buff.list = NULL;
@@ -18,12 +18,12 @@ Array Array_Init() {
 }
 
 
-void Array_Free(Array* arr) {
+void array_flush(Array* arr) {
     free(arr->list);
     arr->len = 0;
 }
 
-#define Array_PushBack(type ,arr, value) { \
+#define array_pushBack(type ,arr, value) { \
     void* new_list; \
     (arr).len += 1; \
     new_list = realloc((arr).list, sizeof(type) * (arr).len); \
@@ -32,7 +32,7 @@ void Array_Free(Array* arr) {
     ((type*)(arr).list)[(arr).len - 1] = value; \
 };
 
-#define Array_PopBack(type, arr) { \
+#define array_popBack(type, arr) { \
     void* new_list; \
     (arr).len -= 1; \
     new_list = realloc((arr).list, sizeof(type) * (arr).len); \
@@ -40,7 +40,7 @@ void Array_Free(Array* arr) {
     (arr).list = new_list; \
 }
 
-#define Array_Print(format, type, arr) { \
+#define array_print(format, type, arr) { \
     printf("["); \
     for(int i = 0; i < (arr).len; i++) { \
         printf(format, ((type*)(arr).list)[i]); \
@@ -50,26 +50,26 @@ void Array_Free(Array* arr) {
     printf("] \n"); \
 }
 
-#define Array_Take(type, arr, index) ((( type* )(arr).list)[(index)])
+#define array_take(type, arr, index) ((( type* )(arr).list)[(index)])
 
 
-#define Array_ForEach(type, arr, callback) { \
+#define array_forEach(type, arr, callback) { \
     void(*arrforeach)(type) = callback; \
     for(int i = 0; i < (arr).len; i++) { \
         arrforeach((( type* )(arr).list)[i]); \
     } \
 }
 
-#define Array_Map(type, arr, callback) { \
+#define array_map(type, arr, callback) { \
     type (*arrmap)(type) = callback; \
     for(int i = 0; i < (arr).len; i++) { \
         (( type* )(arr).list)[i] = arrmap((( type* )(arr).list)[i]); \
     } \
 }
 
-#define Array_Modify(type, arr, index, value) (( type* )(arr).list)[index] = value;
+#define array_mod(type, arr, index, value) (( type* )(arr).list)[index] = value;
 
-#define Array_Shuffle(type, arr) { \
+#define array_shuffle(type, arr) { \
     srand(time(0)); \
     const unsigned int MAX = (arr).len - 1; \
     const unsigned short MIN = 0; \
@@ -82,17 +82,18 @@ void Array_Free(Array* arr) {
 }
 
 int main() {
-    Array myarr = Array_Init();
-    Array_PushBack(char*, myarr, "Kamusta");
-    Array_PushBack(char*, myarr, "Hello World");
-    Array_PushBack(char*, myarr, "Hii");
-    Array_Modify(char*, myarr, 0, "Test");
-    Array_Shuffle(char*, myarr);
-    Array_PopBack(char*, myarr);
+    Array nn = array_init();
+    Array nnn = array_init();
+    array_pushBack(int, nnn, 20);
+    array_pushBack(Array, nn, nnn);
 
-    Array_Print("%s", char*, myarr);
+    Array getVal = array_take(Array, nn, 0);
+    int num = array_take(int, getVal, 0);
 
-    Array_Free(&myarr);
+    printf("%i\n", num);
+
+    array_flush(&nnn);
+    array_flush(&nn);
     return 0;
 }
 
